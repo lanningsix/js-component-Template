@@ -66,7 +66,7 @@ export default class CommonTemplate {
         }
       }
       this.listeners.splice(i, 1)
-      handlers.splice(i, 1)
+      this.handlers[type].splice(i, 1)
     }
   }
 
