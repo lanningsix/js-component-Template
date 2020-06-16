@@ -1,0 +1,7 @@
+#common_login_header {
+  text-align: center;
+}
+
+#common_login_header .login_btn {
+  float: right;
+}
