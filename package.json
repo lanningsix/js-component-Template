@@ -1,18 +1,20 @@
 {
   "name": "js-component-template",
   "version": "",
-  "description": "js组件通用模版",
-  "main": "./dist/js-component-template-jssdk.js",
+  "description": "JS通用组件模版",
+  "main": "./dist/CommonSDK.js",
   "scripts": {
     "clean": "rimraf dist",
     "commit": "git add . && git-cz ",
     "changelog": "conventional-changelog -p angular -r 2 -i CHANGELOG.md -s",
     "dev": "webpack-dev-server  --config example/webpack.config.js",
-    "build": "npm run clean && rollup -c"
+    "build": "npm run clean && rollup -c --environment NODE_ENV:PROD",
+    "test": "npm run clean && rollup -c --environment NODE_ENV:TEST",
+    "preprod": "npm run clean && rollup -c --environment NODE_ENV:PRE"
   },
   "repository": {
     "type": "git",
-    "url": "git@https://github.com/lanningsix/js-component-template"
+    "url": "git@gitlab.61info.com:61tech-live-fe/rollup-template.git"
   },
   "config": {
     "commitizen": {
@@ -23,7 +25,7 @@
     "dist"
   ],
   "keywords": [],
-  "author": "lannning",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.5.5",
@@ -32,13 +34,17 @@
     "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "7.5.5",
     "@babel/preset-typescript": "7.3.3",
+    "@rollup/plugin-image": "^2.0.5",
+    "@rollup/plugin-url": "^5.0.1",
     "awesome-typescript-loader": "^5.2.1",
     "conventional-changelog-cli": "^2.0.11",
     "core-js": "^3.6.4",
     "css-loader": "^3.6.0",
     "cz-conventional-changelog": "^3.0.2",
+    "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.2.0",
     "husky": "^3.0.5",
+    "postcss-url": "^8.0.0",
     "rimraf": "^2.6.3",
     "rollup": "^2.6.1",
     "rollup-plugin-babel": "^4.3.3",
@@ -47,6 +53,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss": "^3.1.2",
+    "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript": "^1.0.1",
     "style-loader": "^1.2.1",
@@ -54,6 +61,7 @@
     "ts-polyfill": "^3.5.3",
     "tslib": "^1.10.0",
     "typescript": "^3.6.3",
+    "url-loader": "^4.1.0",
     "validate-commit-msg": "^2.14.0",
     "vconsole": "^3.3.4",
     "webpack": "^4.40.2",
@@ -62,6 +70,7 @@
   },
   "dependencies": {
     "@types/qs": "^6.9.1",
+    "axios": "^0.19.2",
     "qs": "^6.9.3"
   }
 }

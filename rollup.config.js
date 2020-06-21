@@ -4,8 +4,10 @@ import babel from 'rollup-plugin-babel';
 import { terser } from "rollup-plugin-terser";
 import json from 'rollup-plugin-json';
 import postcss from 'rollup-plugin-postcss';
-const name = 'js-component-template'
+import image from '@rollup/plugin-image';
+import replace from 'rollup-plugin-replace'
 
+const name = 'CommonSDK'
 const extensions = [
   '.js', '.jsx', '.ts', '.tsx',
 ];
@@ -14,26 +16,39 @@ export default {
   input: './src/index.ts',
   external: [],
   plugins: [
-    resolve({ extensions }),
+    resolve({
+      jsnext: true,
+      main: true,
+      browser: true,
+      extensions
+    }),
     commonjs(),
     babel({ extensions, include: ['src/**/*'] }),
     json(),
     terser(),
+    image({
+      extensions: /\.(png|jpg|jpeg|gif|svg)$/,
+      limit: 10000
+    }),
     // 新增的postcss
     postcss({
-      extensions: ['.css']
+      extensions: ['.css'],
+      plugins: [require('postcss-url')({url: 'inline'})]
+    }),
+    replace({ 
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
   ],
 
   output: [
     {
-      file: 'dist/common-login-jssdk.js',
+      file: `dist/${name}.js`,
       format: 'esm',
     },
     // umd – 通用模块定义，以amd，cjs 和 iife 为一体
     {
       name: name,
-      file: `dist/common-login-jssdk.umd.js`,
+      file: `dist/${name}.umd.js`,
       format: 'umd'
     },
 
@@ -41,7 +56,7 @@ export default {
     // es – 将软件包保存为ES模块文件
     {
       name: name,
-      file: `dist/common-login-jssdk.es.js`,
+      file: `dist/${name}.es.js`,
       format: 'es'
     },
 
@@ -49,7 +64,7 @@ export default {
     // cjs – CommonJS，适用于 Node 和 Browserify/Webpack
     {
       name: name,
-      file: `dist/common-login-jssdk.cjs.js`,
+      file: `dist/${name}.cjs.js`,
       format: 'cjs'
     },
 
@@ -57,7 +72,7 @@ export default {
     // 异步模块定义，用于像RequireJS这样的模块加载器
     {
       name: name,
-      file: `dist/common-login-jssdk.amd.js`,
+      file: `dist/${name}.amd.js`,
       format: 'amd'
     }
   ]

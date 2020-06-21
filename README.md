@@ -1,2 +1,1 @@
-# js-component-emplate
-js组件通用模版
+JS通用组件模版

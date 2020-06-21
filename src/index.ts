@@ -1,7 +1,10 @@
 import '../css/CommonLogin.css'
+import CommonLoginSDK from './CommonLoginSDK'
 
-import CommonTemplate from './commonTemplate'
+let instance = new CommonLoginSDK();
 
-(window as any).CommonTemplate = CommonTemplate
+if (!(window as any).CommonLoginSDK) {
+  (window as any).CommonLoginSDK = instance
+}
 
-export default CommonTemplate
+export default instance

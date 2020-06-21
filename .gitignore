@@ -8,3 +8,4 @@ yarn-error.log
 .git
 build/
 dll/
+dist/

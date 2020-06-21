@@ -7,7 +7,7 @@ module.exports = {
 		path: __dirname + '/dist/',
 	},
 	devServer: {
-		port: 8100,
+		port: 8101,
 		host: '0.0.0.0'
 	},
 	resolve: {
@@ -20,10 +20,22 @@ module.exports = {
 				use: 'awesome-typescript-loader',
 			},
 			{
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
-      }
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader']
+			},
+			{
+				test: /\.(png|jpg|gif)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							limit: 8192
+						}
+					}
+				]
+			}
 		],
+
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
